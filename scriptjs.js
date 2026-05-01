@@ -1,9 +1,14 @@
+// DEBUG (biar tau kalau ada error)
+window.onerror = function(msg) {
+    console.log("ERROR:", msg);
+};
+
+// EFFECT CLICK
 document.addEventListener("click", function (e) {
     const circle = document.createElement("div");
     circle.classList.add("click-effect");
     circle.style.left = `${e.pageX}px`;
     circle.style.top = `${e.pageY}px`;
-
     document.body.appendChild(circle);
 
     circle.addEventListener("animationend", () => {
@@ -11,6 +16,7 @@ document.addEventListener("click", function (e) {
     });
 });
 
+// AMBIL ELEMENT (AMAN)
 const overlay = document.querySelector('.overlay');
 const cover = document.querySelector('.cover');
 const reset = document.querySelector('.reset');
@@ -18,163 +24,151 @@ const title = document.querySelector('.title');
 const container = document.getElementById('container');
 const titleC = document.querySelector('.titleC');
 const messageC = document.querySelector('.messageC');
-
-// 🔥 STIKER DIMATIKAN TOTAL
 const stiker = document.querySelector('.stiker');
-stiker.style.display = "none";
+const mainStiker = document.querySelector('#main-stiker');
 
-envwrap.style = "transform:scale(0);opacity:0;transition:all .6s ease";
-
-// 🔥 AUDIO LOOP
+const envwrap = document.querySelector('.envwrap');
+const wallpaper = document.querySelector('.wallpaper');
 const linkmp3 = document.getElementById('linkmp3');
-const audio = new Audio(linkmp3.src);
-audio.loop = true;
-audio.volume = 0.7;
 
+// SAFE STYLE
+if (envwrap) envwrap.style = "transform:scale(0);opacity:0;transition:all .6s ease";
+if (reset) reset.style = "transform:scale(0);opacity:0;transition:all .6s ease";
+
+// AUDIO FIX
+let audio = null;
+if (linkmp3) {
+    audio = new Audio(linkmp3.src);
+    audio.loop = true;
+    audio.volume = 0.7;
+}
+
+// ENVELOPE
 const envelope = document.getElementById('envelope');
 const btnOpen = document.getElementById('open');
 
-reset.style = "transform:scale(0);opacity:0;transition:all .6s ease";
-
-envelope.addEventListener('click', open);
-btnOpen.addEventListener('click', open);
+if (envelope) envelope.addEventListener('click', open);
+if (btnOpen) btnOpen.addEventListener('click', open);
 
 function open() {
+    if (!envelope) return;
+
     envelope.classList.remove("close");
     envelope.classList.add("open");
 
-    reset.style = "transform:scale(0);opacity:0;transition:all .6s ease";
+    if (reset) reset.style="transform:scale(0);opacity:0;transition:all .6s ease";
 
-    setTimeout(function () {
-        envwrap.classList.add('opahidden');
-        wallpaper.style = "transform: scale(1.5)";
+    setTimeout(function(){
+        if (envwrap) envwrap.classList.add('opahidden');
+        if (wallpaper) wallpaper.style="transform: scale(1.5)";
 
-        setTimeout(function () {
-            container.classList.remove('hidden');
-            container.classList.add('opamuncul');
+        setTimeout(function(){
+            if (container) {
+                container.classList.remove('hidden');
+                container.classList.add('opamuncul');
+            }
 
-            wallpaper.style = "transform: scale(1)";
-            envwrap.classList.add('hidden');
+            if (stiker) stiker.classList.add('opamuncul');
+
+            if (wallpaper) wallpaper.style="transform: scale(1)";
+            if (envwrap) envwrap.classList.add('hidden');
 
             katanimasi();
         }, 800);
     }, 1500);
 }
 
-// 🔥 PLAY AUDIO SETELAH KLIK
-document.querySelector(".awalan").onclick = async function () {
-    try {
-        await audio.play();
-    } catch (err) {
-        console.log("Autoplay diblokir");
+// AWALAN CLICK
+const awalan = document.querySelector(".awalan");
+if (awalan) {
+    awalan.onclick = async function() {
+        if (audio) {
+            try {
+                await audio.play();
+            } catch (e) {
+                console.log("Audio gagal play");
+            }
+        }
+
+        if (overlay) overlay.style="opacity:0;transition:all .6s ease";
+        if (cover) cover.style="transform:scale(0);opacity:0;transition:all .6s ease";
+
+        setTimeout(function(){
+            if (overlay) overlay.style.display="none";
+            if (envwrap) envwrap.style="transition:all .6s ease";
+            if (reset) reset.style="transition:all .6s ease";
+            if (wallpaper) wallpaper.style="transform: scale(1)";
+        }, 300);
     }
+}
 
-    overlay.style = "opacity:0;transition:all .6s ease";
-    cover.style = "transform:scale(0);opacity:0;transition:all .6s ease";
+// TEXT DATA
+let vjudul = titleC ? titleC.innerHTML : "";
+if (titleC) titleC.innerHTML = "";
 
-    setTimeout(function () {
-        overlay.style.display = "none";
-        envwrap.style = "transition:all .6s ease";
-        reset.style = "transition:all .6s ease";
-        wallpaper.style = "transform: scale(1)";
-    }, 300);
-};
+let vmessage = messageC ? messageC.innerHTML : "";
+if (messageC) messageC.innerHTML = "";
 
-
-let vjudul = document.querySelector('.titleC').innerHTML;
-titleC.innerHTML = "";
-
-let vmessage = document.querySelector('.messageC').innerHTML;
-messageC.innerHTML = "";
-
-function katanimasi() {
+// ANIMASI JUDUL
+function katanimasi(){
     new TypeIt(".titleC", {
         strings: [vjudul],
-        startDelay: 500,
-        speed: 40,
+        startDelay: 400,
+        speed: 35,
         lifeLike: true,
         cursor: true,
-        afterComplete: function () {
-            titleC.innerHTML = vjudul;
-            setTimeout(() => {
-                katanimasiAlts();
-            }, 800);
+        afterComplete: function(){
+            if (titleC) titleC.innerHTML = vjudul;
+            setTimeout(() => {katanimasiAlts()}, 600);
         },
     }).go();
 }
 
-function katanimasiAlts() {
+// ANIMASI MESSAGE
+function katanimasiAlts(){
     new TypeIt(".messageC", {
         strings: [
             "─",
-            "<br>" + pesanSurat1.innerHTML,
-            "<br>" + pesanSurat2.innerHTML,
-            "<br>" + pesanSurat3.innerHTML,
+            "<br>" + (window.pesanSurat1?.innerHTML || ""),
+            "<br>" + (window.pesanSurat2?.innerHTML || ""),
+            "<br>" + (window.pesanSurat3?.innerHTML || "")
         ],
-        startDelay: 800,
-        speed: 50,
+        startDelay: 600,
+        speed: 45,
         lifeLike: true,
         cursor: true,
         breakLines: true,
-        waitUntilVisible: true,
 
-        afterStep: function (instance) {
+        afterStep: function(instance) {
             if (instance.is('completed')) {
-                setTimeout(function () {
+                setTimeout(() => {
                     instance.next();
-                }, 1500); // 🔥 delay antar paragraf
+                }, 1200);
             }
         },
 
-        afterComplete: function () {
-            document.querySelector(".ti-cursor").style.display = "none";
+        afterComplete: function(){
+            const cursor = document.querySelector(".ti-cursor");
+            if (cursor) cursor.style.display = "none";
 
-            setTimeout(function () {
+            setTimeout(() => {
                 clearInterval(scrollInterval);
             }, 1000);
         },
     }).go();
 }
 
-function autoScroll() {
-    container.scrollTop += 10;
+// STIKER ANIMATION (AMAN)
+function stikerHidden(){
+    if (!stiker) return;
+    stiker.style="transform:scale(0);opacity:0;";
+    setTimeout(function(){
+        stiker.style="transform:scale(1.1);opacity:1;";
+    }, 300);
 }
 
-const scrollInterval = setInterval(autoScroll, 50);                    "<br>" + pesanSurat2.innerHTML,
-                    "<br>" + pesanSurat3.innerHTML,
-				 ],
-        startDelay: 1,
-        speed: 28,
-        cursor: true,
-        breakLines: true,
-        waitUntilVisible: true,
-        afterStep: function(instance) {
-            if (instance.is('completed')) {
-                setTimeout(function() {
-                    instance.next();
-                }, 700);
-            }
-        },
-        afterComplete: function(){      
-            document.querySelector(".ti-cursor").style.display = "none";
-            setTimeout(function() {
-                clearInterval(scrollInterval);
-            }, 1000);
-            setTimeout(() => {
-                stikerHidden();
-                setTimeout(() => {
-                   mainStiker.src = stikerAlt1.src;
-                   //setInterval(berjatuhan,300);
-                 }, 300);
-             }, 100);
-             
-        },}).go();
-    }
-    
-    function stikerHidden(){
-    	stiker.style="transform:scale(0);opacity:0;";
-        setTimeout(function(){stiker.style="transform:scale(1.1);opacity:1;";}, 300);
-    }
-    
-    function autoScroll() {container.scrollTop += 10;} 
-    const scrollInterval = setInterval(autoScroll, 50); 
+// AUTO SCROLL
+function autoScroll() {
+    if (container) container.scrollTop += 10;
+}
+const scrollInterval = setInterval(autoScroll, 50);
