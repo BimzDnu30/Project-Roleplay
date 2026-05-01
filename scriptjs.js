@@ -109,7 +109,7 @@ document.addEventListener("click", function (e) {
                     "<br>" + pesanSurat3.innerHTML,
 				 ],
         startDelay: 1,
-        speed: 95,
+        speed: 135,
         cursor: true,
         breakLines: true,
         waitUntilVisible: true,
