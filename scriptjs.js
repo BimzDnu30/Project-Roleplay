@@ -1,174 +1,145 @@
-// DEBUG (biar tau kalau ada error)
-window.onerror = function(msg) {
-    console.log("ERROR:", msg);
-};
-
-// EFFECT CLICK
 document.addEventListener("click", function (e) {
-    const circle = document.createElement("div");
-    circle.classList.add("click-effect");
-    circle.style.left = `${e.pageX}px`;
-    circle.style.top = `${e.pageY}px`;
-    document.body.appendChild(circle);
+        const circle = document.createElement("div");
+        circle.classList.add("click-effect");
+        circle.style.left = `${e.pageX}px`;
+        circle.style.top = `${e.pageY}px`;
 
-    circle.addEventListener("animationend", () => {
-        circle.remove();
+        document.body.appendChild(circle);
+
+        circle.addEventListener("animationend", () => {
+            circle.remove();
+        });
     });
-});
 
-// AMBIL ELEMENT (AMAN)
-const overlay = document.querySelector('.overlay');
-const cover = document.querySelector('.cover');
-const reset = document.querySelector('.reset');
-const title = document.querySelector('.title');
-const container = document.getElementById('container');
-const titleC = document.querySelector('.titleC');
-const messageC = document.querySelector('.messageC');
-const stiker = document.querySelector('.stiker');
-const mainStiker = document.querySelector('#main-stiker');
-
-const envwrap = document.querySelector('.envwrap');
-const wallpaper = document.querySelector('.wallpaper');
-const linkmp3 = document.getElementById('linkmp3');
-
-// SAFE STYLE
-if (envwrap) envwrap.style = "transform:scale(0);opacity:0;transition:all .6s ease";
-if (reset) reset.style = "transform:scale(0);opacity:0;transition:all .6s ease";
-
-// AUDIO FIX
-let audio = null;
-if (linkmp3) {
-    audio = new Audio(linkmp3.src);
+    const overlay = document.querySelector('.overlay');
+    const cover = document.querySelector('.cover');
+    const reset = document.querySelector('.reset');
+    const title = document.querySelector('.title');
+    const container = document.getElementById('container');
+    const titleC = document.querySelector('.titleC');
+    const messageC = document.querySelector('.messageC');
+    const stiker = document.querySelector('.stiker');
+    const mainStiker = document.querySelector('#main-stiker');
+    envwrap.style="transform:scale(0);opacity:0;transition:all .6s ease";
+    audio = new Audio('' + linkmp3.src);
     audio.loop = true;
-    audio.volume = 0.7;
-}
+    
+        const envelope = document.getElementById('envelope');
+        const btnOpen = document.getElementById('open');
+        //const btnReset = document.getElementById('reset');
+        reset.style="transform:scale(0);opacity:0;transition:all .6s ease";
+        
+        envelope.addEventListener('click', open);
+        btnOpen.addEventListener('click', open);
+        //btnReset.addEventListener('click', close);
 
-// ENVELOPE
-const envelope = document.getElementById('envelope');
-const btnOpen = document.getElementById('open');
-
-if (envelope) envelope.addEventListener('click', open);
-if (btnOpen) btnOpen.addEventListener('click', open);
-
-function open() {
-    if (!envelope) return;
-
-    envelope.classList.remove("close");
-    envelope.classList.add("open");
-
-    if (reset) reset.style="transform:scale(0);opacity:0;transition:all .6s ease";
-
-    setTimeout(function(){
-        if (envwrap) envwrap.classList.add('opahidden');
-        if (wallpaper) wallpaper.style="transform: scale(1.5)";
-
-        setTimeout(function(){
-            if (container) {
-                container.classList.remove('hidden');
-                container.classList.add('opamuncul');
-            }
-
-            if (stiker) stiker.classList.add('opamuncul');
-
-            if (wallpaper) wallpaper.style="transform: scale(1)";
-            if (envwrap) envwrap.classList.add('hidden');
-
-            katanimasi();
-        }, 800);
-    }, 1500);
-}
-
-// AWALAN CLICK
-const awalan = document.querySelector(".awalan");
-if (awalan) {
-    awalan.onclick = async function() {
-        if (audio) {
-            try {
-                await audio.play();
-            } catch (e) {
-                console.log("Audio gagal play");
-            }
+        function open() {
+            envelope.classList.remove("close");
+            envelope.classList.add("open");
+            reset.style="transform:scale(0);opacity:0;transition:all .6s ease";
+            
+            setTimeout(function(){
+	        	envwrap.classList.add('opahidden');
+		        wallpaper.style="transform: scale(1.5)";
+		        setTimeout(function(){
+			        container.classList.remove('hidden');
+			        container.classList.add('opamuncul');
+			        stiker.classList.add('opamuncul');
+			        wallpaper.style="transform: scale(1)";
+			        envwrap.classList.add('hidden');
+			        katanimasi();
+		        }, 800);
+	        }, 1500);
         }
 
-        if (overlay) overlay.style="opacity:0;transition:all .6s ease";
-        if (cover) cover.style="transform:scale(0);opacity:0;transition:all .6s ease";
+    document.querySelector(".awalan").onclick = async function() {
+        audio.play();
 
+    	overlay.style="opacity:0;transition:all .6s ease";
+        cover.style="transform:scale(0);opacity:0;transition:all .6s ease";
         setTimeout(function(){
-            if (overlay) overlay.style.display="none";
-            if (envwrap) envwrap.style="transition:all .6s ease";
-            if (reset) reset.style="transition:all .6s ease";
-            if (wallpaper) wallpaper.style="transform: scale(1)";
+        	overlay.style.display="none";
+            envwrap.style="transition:all .6s ease";
+            reset.style="transition:all .6s ease";
+            wallpaper.style="transform: scale(1)";
         }, 300);
     }
-}
+    
+    vjudul = document.querySelector('.titleC').innerHTML;
+    titleC.innerHTML = "";
+    vmessage = document.querySelector('.messageC').innerHTML;
+    messageC.innerHTML = "";
+    function katanimasi(){
+		new TypeIt(".titleC", {
+	    strings: [vjudul],
+	    startDelay: 250,
+	    speed: 27,
+	    cursor: true,
+	    afterComplete: function(){      
+	      	//clearInterval(scrollInterval);
+	      	titleC.innerHTML = vjudul;
+	          setTimeout(() => {katanimasiAlts()}, 300);
+	    },}).go();
+	}
+	
+	function katanimasiAlt(){
+		new TypeIt(".messageC", {
+	    strings: [vmessage],
+	    startDelay: 1,
+	    speed: 30,
+	    cursor: true,
+	    afterComplete: function(){      
+	      	clearInterval(scrollInterval);
+	      	messageC.innerHTML = vmessage;
+	          setTimeout(() => {
+			    stikerHidden();
+			    setTimeout(() => {
+				    mainStiker.src = stikerAlt1.src;
+			    }, 300);
+			  }, 100);
+	    },}).go();
+	}
 
-// TEXT DATA
-let vjudul = titleC ? titleC.innerHTML : "";
-if (titleC) titleC.innerHTML = "";
-
-let vmessage = messageC ? messageC.innerHTML : "";
-if (messageC) messageC.innerHTML = "";
-
-// ANIMASI JUDUL
-function katanimasi(){
-    new TypeIt(".titleC", {
-        strings: [vjudul],
-        startDelay: 400,
-        speed: 35,
-        lifeLike: true,
-        cursor: true,
-        afterComplete: function(){
-            if (titleC) titleC.innerHTML = vjudul;
-            setTimeout(() => {katanimasiAlts()}, 600);
-        },
-    }).go();
-}
-
-// ANIMASI MESSAGE
-function katanimasiAlts(){
-    new TypeIt(".messageC", {
+    function katanimasiAlts(){
+        new TypeIt(".messageC", {
         strings: [
-            "─",
-            "<br>" + (window.pesanSurat1?.innerHTML || ""),
-            "<br>" + (window.pesanSurat2?.innerHTML || ""),
-            "<br>" + (window.pesanSurat3?.innerHTML || "")
-        ],
-        startDelay: 600,
-        speed: 45,
-        lifeLike: true,
+                    "─",
+				    "<br>" + pesanSurat1.innerHTML,
+                    "<br>" + pesanSurat2.innerHTML,
+                    "<br>" + pesanSurat3.innerHTML,
+				 ],
+        startDelay: 500,
+        speed: 40,
         cursor: true,
         breakLines: true,
-
+        waitUntilVisible: true,
         afterStep: function(instance) {
             if (instance.is('completed')) {
-                setTimeout(() => {
+                setTimeout(function() {
                     instance.next();
-                }, 1200);
+                }, 700);
             }
         },
-
-        afterComplete: function(){
-            const cursor = document.querySelector(".ti-cursor");
-            if (cursor) cursor.style.display = "none";
-
-            setTimeout(() => {
+        afterComplete: function(){      
+            document.querySelector(".ti-cursor").style.display = "none";
+            setTimeout(function() {
                 clearInterval(scrollInterval);
             }, 1000);
-        },
-    }).go();
-}
-
-// STIKER ANIMATION (AMAN)
-function stikerHidden(){
-    if (!stiker) return;
-    stiker.style="transform:scale(0);opacity:0;";
-    setTimeout(function(){
-        stiker.style="transform:scale(1.1);opacity:1;";
-    }, 300);
-}
-
-// AUTO SCROLL
-function autoScroll() {
-    if (container) container.scrollTop += 10;
-}
-const scrollInterval = setInterval(autoScroll, 50);
+            setTimeout(() => {
+                stikerHidden();
+                setTimeout(() => {
+                   mainStiker.src = stikerAlt1.src;
+                   //setInterval(berjatuhan,300);
+                 }, 300);
+             }, 100);
+             
+        },}).go();
+    }
+    
+    function stikerHidden(){
+    	stiker.style="transform:scale(0);opacity:0;";
+        setTimeout(function(){stiker.style="transform:scale(1.1);opacity:1;";}, 300);
+    }
+    
+    function autoScroll() {container.scrollTop += 10;} 
+    const scrollInterval = setInterval(autoScroll, 50); 
