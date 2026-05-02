@@ -21,8 +21,26 @@ document.addEventListener("click", function (e) {
     const stiker = document.querySelector('.stiker');
     const mainStiker = document.querySelector('#main-stiker');
     envwrap.style="transform:scale(0);opacity:0;transition:all .6s ease";
-    audio = new Audio('' + linkmp3.src);
-    audio.loop = true;
+    //audio = new Audio('' + linkmp3.src);
+    //audio.loop = true;
+    const playlist = [
+          "https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3",
+          "https://bimzdnu30.github.io/Project-Roleplay/music/Happiness.mp3"
+    ];
+
+    let index = 0;
+    audio = new Audio(playlist[index]);
+
+    audio.addEventListener("ended", function () {
+         index++;
+
+        if (index >= playlist.length) {
+            index = 0;
+        }
+
+        audio.src = playlist[index];
+        audio.play();
+    });
     
         const envelope = document.getElementById('envelope');
         const btnOpen = document.getElementById('open');
