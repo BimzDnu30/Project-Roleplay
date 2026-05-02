@@ -39,7 +39,7 @@
 	
     <!-- Ganti Audio di Sini -->
 	<!--<audio src="https://bimzdnu30.github.io/Project-Roleplay/music/Hayoo-Ini.mp3" id="linkmp3" loop></audio>-->
-	<audio id="player"></audio>
+	<audio id="linkmp3"></audio>
 
 <script>
 const playlist = [
@@ -48,10 +48,9 @@ const playlist = [
 ];
 
 let current = 0;
-const audio = document.getElementById("player");
+const audio = document.getElementById("linkmp3");
 
 audio.src = playlist[current];
-audio.play();
 
 audio.addEventListener("ended", () => {
   current = (current + 1) % playlist.length;
