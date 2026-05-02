@@ -38,27 +38,7 @@
 	</div>
 	
     <!-- Ganti Audio di Sini -->
-	<!--<audio src="https://bimzdnu30.github.io/Project-Roleplay/music/Hayoo-Ini.mp3" id="linkmp3" loop></audio>-->
-	<audio id="player"></audio>
-
-<script>
-const playlist = [
-  "https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3",
-  "https://bimzdnu30.github.io/Project-Roleplay/music/Happiness.mp3"
-];
-
-let current = 0;
-const audio = document.getElementById("player");
-
-audio.src = playlist[current];
-audio.play();
-
-audio.addEventListener("ended", () => {
-  current = (current + 1) % playlist.length;
-  audio.src = playlist[current];
-  audio.play();
-});
-</script>
+	<audio src="https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3" id="linkmp3" loop></audio>
 	
     <div id="envwrap" class="envlope-wrapper">
         <div id="envelope" class="close">
