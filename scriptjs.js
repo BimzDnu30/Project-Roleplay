@@ -24,8 +24,10 @@ document.addEventListener("click", function (e) {
     //audio = new Audio('' + linkmp3.src);
     //audio.loop = true;
     const playlist = [
-          "https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3",
-		  "https://bimzdnu30.github.io/Project-Roleplay/music/Badut.mp3",
+		  "https://bimzdnu30.github.io/Project-Roleplay/music/Tak-Kan-Hilang.mp3",
+		  "https://bimzdnu30.github.io/Project-Roleplay/music/Untuk-Mencintaimu.mp3",
+          "https://bimzdnu30.github.io/Project-Roleplay/music/Badut.mp3",
+		  "https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3",
 		  "https://bimzdnu30.github.io/Project-Roleplay/music/Heat-Waves.mp3",
           "https://bimzdnu30.github.io/Project-Roleplay/music/Happiness.mp3"
     ];
