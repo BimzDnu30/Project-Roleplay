@@ -22,7 +22,7 @@ document.addEventListener("click", function (e) {
     const mainStiker = document.querySelector('#main-stiker');
     envwrap.style="transform:scale(0);opacity:0;transition:all .6s ease";
     audio = new Audio('' + linkmp3.src);
-    //audio.loop = true;
+    audio.loop = true;
     
         const envelope = document.getElementById('envelope');
         const btnOpen = document.getElementById('open');
