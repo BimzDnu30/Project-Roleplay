@@ -38,7 +38,27 @@
 	</div>
 	
     <!-- Ganti Audio di Sini -->
-	<audio src="https://bimzdnu30.github.io/Project-Roleplay/music/Hayoo-Ini.mp3" id="linkmp3" loop></audio>
+	<!--<audio src="https://bimzdnu30.github.io/Project-Roleplay/music/Hayoo-Ini.mp3" id="linkmp3" loop></audio>-->
+	<audio id="player"></audio>
+
+<script>
+const playlist = [
+  "https://bimzdnu30.github.io/Project-Roleplay/music/I-wish-you-were-here.mp3",
+  "https://bimzdnu30.github.io/Project-Roleplay/music/Happiness.mp3"
+];
+
+let current = 0;
+const audio = document.getElementById("player");
+
+audio.src = playlist[current];
+audio.play();
+
+audio.addEventListener("ended", () => {
+  current = (current + 1) % playlist.length;
+  audio.src = playlist[current];
+  audio.play();
+});
+</script>
 	
     <div id="envwrap" class="envlope-wrapper">
         <div id="envelope" class="close">
@@ -88,6 +108,12 @@ Aku masih sayang sama kamu. Dan mungkin itu yang perlahan bikin aku hancur. Pera
 Yang paling berat itu bukan saat kamu pergi. Tapi saat kamu tetap di sini… masih nyapa, masih baik, masih terlihat peduli—seolah gaa ada yang berubah. Padahal kenyataannya, semuanya sudah berbeda. Kita bukan lagi “kita” yang dulu. Dan di situlah letak sakitnya.<br><br>
 
 Aku harus nahan rindu di depan orang yang sama yang jadi alasan rinduku. Aku harus pura-pura biasa aja, aku harus nahan semua yang sebenarnya pengen aku ungkapin. Kalau kamu tau betapa berisiknya hati ini manggil kamu untuk kembali.<br><br>
+
+Maaf… aku sering banget cemburu. Dan aku juga sering banget diem, bukan karena aku gaa peduli, tapi karena aku takut kalau aku terlalu banyak bicara, semuanya malah jadi makin rumit. Aku cuma ga tau harus bersikap gimana saat perasaan ini masih sebesar ini ke kamu.<br><br>
+
+Aku diem bukan karena aku menjauh dari kamu… tapi justru karena aku ga mau kamu ikut kebawa sama masalah yang lagi aku rasain. Ada hal-hal yang aku pilih simpan sendiri, bukan karena aku ga percaya kamu, tapi karena aku ga mau jadi alasan kamu ikut capek, ikut overthinking, atau ikut ngerasa berat.<br><br>
+
+Dan kalau kamu sadar, aku sering main game waktu kita lagi telepon… itu juga bukan karena aku lebih milih game daripada kamu. Justru itu cara aku nenangin diri. Cara aku biar tetap bisa denger suara kamu tanpa harus kebawa emosi atau kepikiran hal-hal yang bikin semuanya jadi kacau. Di situ aku lagi berusaha ngatur perasaan aku sendiri, biar aku tetap bisa ada buat kamu, walaupun sebenarnya aku lagi ga baik-baik aja.<br><br>
 
 Kamu seperti tetap membuka pintu… tapi bukan untuk aku pulang. Hanya untuk sekadar singgah. Dan bodohnya aku, tetap datang. Tetap mengetuk pintu itu. Tetap berharap mungkin suatu hari pintu itu benar-benar terbuka lagi untuk aku. Padahal tiap kali aku pergi, yang aku bawa bukan bahagia… tapi luka yang baru, yang makin dalam.<br><br>
 
