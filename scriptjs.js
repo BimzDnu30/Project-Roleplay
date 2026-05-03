@@ -26,8 +26,8 @@ document.addEventListener("click", function (e) {
     const playlist = [
 		  "https://bimzdnu30.github.io/Project-Roleplay/music/Tak-Kan-Hilang.mp3",
 		  "https://bimzdnu30.github.io/Project-Roleplay/music/Untuk-Mencintaimu.mp3",
-          "https://bimzdnu30.github.io/Project-Roleplay/music/Lampu-Merah.mp3",
-		  "https://bimzdnu30.github.io/Project-Roleplay/music/Penjaga-Hati.mp3",
+          "https://bimzdnu30.github.io/Project-Roleplay/music/Penjaga-Hati.mp3",
+		  "https://bimzdnu30.github.io/Project-Roleplay/music/Lampu-Merah.mp3",
           "https://bimzdnu30.github.io/Project-Roleplay/music/Happiness.mp3"
     ];
 
